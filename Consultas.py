@@ -6,24 +6,44 @@ conn = psycopg2.connect(host="200.129.44.249", database="537063", user="537063",
 # Criando um cursor
 cur = conn.cursor()
 
-# Retorne todas as embarcações e o número de tripulantes de cada embarcação.
+# 1. Retorne todas as embarcações e o número de tripulantes de cada embarcação.
+cur.execute("SELECT e.nome, COUNT(trp.id_trp) "
+            "FROM Embarcacoes e INNER JOIN Tripulantes trp ON e.id_emb = trp.id_emb "
+            "GROUP BY e.nome "
+            "ORDER BY e.nome ASC")
 
-# Retorne os Empregados envolvidos na movimentação de ID 1.
-cur.execute("SELECT e.id_emp, e.nome, e.funcao FROM (Empregados e INNER JOIN Movimentacao_Empregados me ON e.id_emp = me.id_emp) INNER JOIN Movimentacao m ON me.id_mov=m.id_mov WHERE m.id_mov = 1")
+# Acessando os valores da consulta 1
+consulta_1 = cur.fetchall()
 
-empregados = cur.fetchall()
+# 2. Retorne os Empregados envolvidos na movimentação de ID 1.
+cur.execute("SELECT e.id_emp, e.nome, e.funcao " 
+            "FROM (Empregados e INNER JOIN Movimentacao_Empregados me ON e.id_emp = me.id_emp) INNER JOIN Movimentacao m ON me.id_mov=m.id_mov " 
+            "WHERE m.id_mov = 1")
 
-# Retorne a quantidade de movimentações que envolvem embarcações do tipo “Cargueiro”.
+# Acessando os valores da consulta 2
+consulta_2 = cur.fetchall()
 
+# 3. Retorne a quantidade de movimentações que envolvem embarcações do tipo “Cargueiro”.
+cur.execute("SELECT COUNT(*) " 
+            "FROM Movimentacao m INNER JOIN Embarcacoes e ON m.id_emb = e.id_emb " 
+            "WHERE e.tipo = 'Cargueiro'")
+
+# Descompactando a tupla para pegar o valor da consulta 3
+consulta_3_aux = cur.fetchone()
+consulta_3 = consulta_3_aux[0]
+
+# Fechando o cursor
 cur.close()
 
+# Fechando a conexão
 conn.close()
 
+# Imprimindo os resultados
 print("Consulta 1:")
-print(empregados)
+print(consulta_1)
 
 print("Consulta 2:")
-print(empregados)
+print(consulta_2)
 
 print("Consulta 3:")
-print(empregados)
+print(consulta_3)
