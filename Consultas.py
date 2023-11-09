@@ -41,8 +41,8 @@ conn.close()
 print("Consulta 1:")
 print(consulta_1)
 
-print("Consulta 2:")
+print("\nConsulta 2:")
 print(consulta_2)
 
-print("Consulta 3:")
+print("\nConsulta 3:")
 print(consulta_3)
