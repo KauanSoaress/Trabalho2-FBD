@@ -15,7 +15,7 @@ cur.execute("CREATE TABLE Embarcacoes ("
 cur.execute("CREATE TABLE Tripulantes ("
             "id_trp INTEGER PRIMARY KEY, "
             "nome VARCHAR(50) NOT NULL, "
-            "data_nasc TIMESTAMP NOT NULL, "
+            "data_nasc DATE NOT NULL, "
             "funcao VARCHAR(50) NOT NULL, "
             "id_emb INTEGER NOT NULL, "
             "CONSTRAINT id_emb_fk FOREIGN KEY (id_emb) REFERENCES Embarcacoes)")
@@ -23,12 +23,12 @@ cur.execute("CREATE TABLE Tripulantes ("
 cur.execute("CREATE TABLE Empregados ("
             "id_emp INTEGER PRIMARY KEY, "
             "nome VARCHAR(50) NOT NULL, "
-            "data_nasc TIMESTAMP NOT NULL, "
+            "data_nasc DATE NOT NULL, "
             "funcao VARCHAR(50) NOT NULL)")
 
 cur.execute("CREATE TABLE Movimentacao ("
             "id_mov INTEGER PRIMARY KEY, "
-            "data TIMESTAMP NOT NULL, "
+            "data DATE NOT NULL, "
             "tipo VARCHAR(50) NOT NULL, "
             "id_emb INTEGER NOT NULL, "
             "CONSTRAINT id_emb_fk FOREIGN KEY (id_emb) REFERENCES Embarcacoes)")
