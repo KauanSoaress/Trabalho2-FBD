@@ -18,7 +18,7 @@ cur.execute("CREATE TABLE Tripulantes ("
             "data_nasc DATE NOT NULL, "
             "funcao VARCHAR(50) NOT NULL, "
             "id_emb INTEGER NOT NULL, "
-            "CONSTRAINT id_emb_fk FOREIGN KEY (id_emb) REFERENCES Embarcacoes)")
+            "CONSTRAINT id_emb_fk FOREIGN KEY (id_emb) REFERENCES Embarcacoes ON DELETE CASCADE)")
 
 cur.execute("CREATE TABLE Empregados ("
             "id_emp INTEGER PRIMARY KEY, "
