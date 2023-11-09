@@ -29,8 +29,7 @@ cur.execute("SELECT COUNT(*) "
             "WHERE e.tipo = 'Cargueiro'")
 
 # Descompactando a tupla para pegar o valor da consulta 3
-consulta_3_aux = cur.fetchone()
-consulta_3 = consulta_3_aux[0]
+consulta_3 = cur.fetchone()[0]
 
 # Fechando o cursor
 cur.close()
