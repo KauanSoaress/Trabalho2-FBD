@@ -26,8 +26,7 @@ cur.execute("""
                 ORDER BY COUNT(*) DESC;
             
                 -- Retorna o id e nome do empregado
-                RAISE NOTICE 'Empregado do mês: %, %', empregado_id, empregado_nome;
-                            
+                RAISE NOTICE 'Empregado do mês: %, %', empregado_id, empregado_nome;  
             END;
             $$;
 """)
