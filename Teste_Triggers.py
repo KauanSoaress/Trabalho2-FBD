@@ -21,7 +21,7 @@ cur.execute("""
             WHERE id_trp = 6
 """)
 
-# Commitar as inserções
+# Commitar
 conn.commit()
 
 cur.close()

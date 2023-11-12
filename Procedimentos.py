@@ -10,25 +10,23 @@ cur = conn.cursor()
 # parâmetro uma data e retorna o id e nome do empregado que participou de mais movimentações naquela
 # combinação Ano/Mês;
 cur.execute("""
-            CREATE OR REPLACE PROCEDURE empregado_do_mes(IN data_parametro DATE)
-            LANGUAGE plpgsql
+            CREATE OR REPLACE FUNCTION empregado_do_mes(IN data_parametro DATE)
+            RETURNS TABLE (empregado_id INTEGER, empregado_nome VARCHAR)
             AS $$
-            DECLARE
-                empregado_id INTEGER;
-                empregado_nome VARCHAR(50);
             BEGIN
                 -- Seleciona o empregado que participou de mais movimentações naquele mês
                 SELECT e.id_emp, e.nome INTO empregado_id, empregado_nome
-                FROM Empregados e INNER JOIN Movimentacao_Empregados me ON e.id_emp = me.id_emp
-                INNER JOIN Movimentacao m ON me.id_mov=m.id_mov
-                WHERE EXTRACT(MONTH FROM m.data) = EXTRACT(MONTH FROM data_parametro) AND EXTRACT(YEAR FROM m.data) = EXTRACT(YEAR FROM data_parametro)
+                FROM Empregados e 
+                INNER JOIN Movimentacao_Empregados me ON e.id_emp = me.id_emp
+                INNER JOIN Movimentacao mov ON me.id_mov=mov.id_mov
+                WHERE EXTRACT(MONTH FROM mov.data) = EXTRACT(MONTH FROM data_parametro) AND EXTRACT(YEAR FROM mov.data) = EXTRACT(YEAR FROM data_parametro)
                 GROUP BY e.id_emp, e.nome
-                ORDER BY COUNT(*) DESC;
-            
-                -- Retorna o id e nome do empregado
-                RAISE NOTICE 'Empregado do mês: %, %', empregado_id, empregado_nome;  
+                ORDER BY COUNT(*) DESC
+                LIMIT 1;
+
+                RETURN NEXT;
             END;
-            $$;
+            $$ LANGUAGE plpgsql;
 """)
 
 # Commitar as inserções
