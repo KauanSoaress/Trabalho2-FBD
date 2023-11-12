@@ -14,5 +14,5 @@ cur.close()
 
 conn.close()
 
-print("ID do empregado do mes: " + str(idEmpregado))
-print("Nome do empregado do mes: " + nomeEmpregado)
+print("ID do empregado do mês: " + str(idEmpregado))
+print("Nome do empregado do mês: " + nomeEmpregado)
