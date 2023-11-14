@@ -18,7 +18,7 @@ cur.execute("""
 cur.execute("""
             UPDATE Tripulantes
             SET funcao = 'Capitão'
-            WHERE id_trp = 6
+            WHERE id_trp = 3
 """)
 
 # Commitar

@@ -20,10 +20,10 @@ try:
                 "WHERE e.tipo = 'Cargueiro'")
     
     # 3.1 Descompactando a tupla para pegar o valor da consulta 3
-    transacao_3 = cur.fetchone()[0]
+    transacao = cur.fetchone()[0]
     
     # 3.2 Imprimindo o resultado da instrução 3 
-    print(f"Resultado Transação 3: {transacao_3}")
+    print(f"Resultado da Transação: {transacao}")
     
     # Commitando a transação
     conn.commit()
