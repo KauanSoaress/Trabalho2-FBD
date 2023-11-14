@@ -13,9 +13,20 @@ cur.execute("""
               existing_capitao INTEGER;
             BEGIN
               IF NEW.funcao = 'Capitão' THEN
-                SELECT COUNT(*) INTO existing_capitao FROM Tripulantes WHERE funcao = 'Capitão';
+                IF TG_OP = 'UPDATE' THEN
+                  SELECT COUNT(*) INTO existing_capitao 
+                FROM Tripulantes 
+                WHERE funcao = 'Capitão' 
+                  AND id_emb = NEW.id_emb 
+                AND id_trp != OLD.id_trp;
+                ELSE
+                  SELECT COUNT(*) INTO existing_capitao 
+                FROM Tripulantes 
+                WHERE funcao = 'Capitão' 
+                  AND id_emb = NEW.id_emb;
+                END IF;
                 IF existing_capitao > 0 THEN
-                  RAISE EXCEPTION 'Já existe um Capitão registrado';
+                  RAISE EXCEPTION 'Já existe um Capitão registrado nesta embarcação';
                 END IF;
               END IF;
               RETURN NEW;
@@ -23,7 +34,7 @@ cur.execute("""
             $$ LANGUAGE plpgsql;
 
             CREATE TRIGGER tripulante_check_capitao
-            BEFORE INSERT OR UPDATE OF funcao ON Tripulantes
+            BEFORE INSERT OR UPDATE OF funcao, id_emb ON Tripulantes
             FOR EACH ROW
             EXECUTE FUNCTION check_capitao();
 """)
