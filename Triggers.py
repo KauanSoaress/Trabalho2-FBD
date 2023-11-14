@@ -15,14 +15,14 @@ cur.execute("""
               IF NEW.funcao = 'Capitão' THEN
                 IF TG_OP = 'UPDATE' THEN
                   SELECT COUNT(*) INTO existing_capitao 
-                FROM Tripulantes 
-                WHERE funcao = 'Capitão' 
+                  FROM Tripulantes 
+                  WHERE funcao = 'Capitão' 
                   AND id_emb = NEW.id_emb 
-                AND id_trp != OLD.id_trp;
+                  AND id_trp != OLD.id_trp;
                 ELSE
                   SELECT COUNT(*) INTO existing_capitao 
-                FROM Tripulantes 
-                WHERE funcao = 'Capitão' 
+                  FROM Tripulantes 
+                  WHERE funcao = 'Capitão' 
                   AND id_emb = NEW.id_emb;
                 END IF;
                 IF existing_capitao > 0 THEN
