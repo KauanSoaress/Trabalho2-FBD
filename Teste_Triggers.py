@@ -10,6 +10,7 @@ cur.execute("""
             INSERT INTO movimentacao_empregados(id_mov, id_emp)
             VALUES (5, 5)
 """)
+
 cur.execute("""
             INSERT INTO movimentacao_empregados(id_mov, id_emp)
             VALUES (5, 2)
