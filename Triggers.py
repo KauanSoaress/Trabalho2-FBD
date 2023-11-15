@@ -6,6 +6,9 @@ conn = psycopg2.connect(host="200.129.44.249", database="537063", user="537063",
 # Criando um cursor
 cur = conn.cursor()
 
+# Implemente um gatilho no banco de dados que dispara toda vez que um Tripulante ́e cadastrado ou quando 
+# o atributo “funcao” tem seu valor modificado. O gatilho deve garantir que somente um dos tripulantes
+# tenha a função “Capitão”.
 cur.execute("""
             CREATE OR REPLACE FUNCTION check_capitao()
             RETURNS TRIGGER AS $$
@@ -39,6 +42,8 @@ cur.execute("""
             EXECUTE FUNCTION check_capitao();
 """)
 
+# Crie um segundo gatilho que restrinja que somente empregados da manutenção possam ser escolhidos para
+# executar movimentações do tipo “Manutenção”.
 cur.execute("""
             CREATE OR REPLACE FUNCTION restringe_mov()
             RETURNS TRIGGER AS $$
@@ -71,6 +76,8 @@ cur.execute("""
 # Commitar as inserções
 conn.commit()
 
+# Fechando o cursor
 cur.close()
 
+# Fechando a conexão
 conn.close()

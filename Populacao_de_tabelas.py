@@ -47,6 +47,8 @@ cur.execute("INSERT INTO Movimentacao_Empregados(id_mov, id_emp) VALUES (%s, %s)
 # Commitar as inserções
 conn.commit()
 
+# Fecha o cursor
 cur.close()
 
+# Fecha a conexão
 conn.close()

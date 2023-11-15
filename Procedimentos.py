@@ -32,6 +32,8 @@ cur.execute("""
 # Commitar as inserções
 conn.commit()
 
+# Fecha o cursor
 cur.close()
 
+# Fecha a conexão
 conn.close()

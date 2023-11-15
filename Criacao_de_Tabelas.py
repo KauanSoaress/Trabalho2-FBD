@@ -6,7 +6,7 @@ conn = psycopg2.connect(host="200.129.44.249", database="537063", user="537063",
 # Criando um cursor
 cur = conn.cursor()
 
-# Criando a tabela
+# Criando as tabelas
 cur.execute("CREATE TABLE Embarcacoes ("
             "id_emb INTEGER PRIMARY KEY, "
             "nome VARCHAR(50) NOT NULL, "
@@ -43,6 +43,8 @@ cur.execute("CREATE TABLE Movimentacao_Empregados ("
 # Commitar a criação
 conn.commit()
 
+# Fechando o cursor
 cur.close()
 
+# Fechando a conexão 
 conn.close()
